@@ -14,7 +14,8 @@ load_dotenv()
 EVA_KOELN = "8000207"
 EVA_MONTABAUR = "8000667"
 DB_API_KEY = os.environ.get("DB_API_KEY")
-DB_API_BASE = "https://api.deutschebahn.com/freeplan/v1/plan"
+DB_CLIENT_ID = os.environ.get("DB_CLIENT_ID")
+DB_API_BASE = "https://apis.deutschebahn.com/db-api-marketplace/apis/timetables/v1"
 
 def send_mail(subject, body):
     smtp_host = os.environ["SMTP_HOST"]
@@ -54,7 +55,10 @@ def format_train_info(trains):
 def fetch_trains_koeln_to_montabaur():
     now = datetime.now()
     results = []
-    headers = {"Authorization": f"Bearer {DB_API_KEY}"}
+    headers = {
+        "DB-Api-Key": DB_API_KEY,
+        "DB-Client-Id": DB_CLIENT_ID
+    }
     for offset in range(2):  # aktuelle Stunde + nächste Stunde
         date = now.strftime("%Y-%m-%d")
         hour = (now.hour + offset) % 24
