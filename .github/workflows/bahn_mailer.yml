@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r Bahn-News/requirements.txt
+          pip install -r requirements.txt
       - name: Run Bahn Mailer
         env:
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
@@ -31,4 +31,4 @@ jobs:
           MAIL_TO: ${{ secrets.MAIL_TO }}
           DB_API_KEY: ${{ secrets.DB_API_KEY }}
         run: |
-          python Bahn-News/scripts/bahn_mailer.py
+          python scripts/bahn_mailer.py
