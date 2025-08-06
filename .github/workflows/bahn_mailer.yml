@@ -1,35 +1,36 @@
 name: Bahn Mailer
 
 on:
+  # = UTC-Zeiten! 07 :30, 09 :30, 11 :30 Europa/Berlin → 05 :30, 07 :30, 09 :30 UTC (Sommerzeit).
   schedule:
-    # Mo–Do, 7:30, 9:30, 11:30 (UTC-Zeit beachten!)
-    - cron: '30 5 * * 1-4'
-    - cron: '30 7 * * 1-4'
-    - cron: '30 9 * * 1-4'
-  workflow_dispatch:
+    - cron: '30 5 * * 1-4'   # Mo-Do 07:30 CEST
+    - cron: '30 7 * * 1-4'   # Mo-Do 09:30 CEST
+    - cron: '30 9 * * 1-4'   # Mo-Do 11:30 CEST
+  workflow_dispatch:         # manueller Trigger
 
 jobs:
-  run-bahn-mailer:
+  run-script:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
+
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r requirements.txt   # enthält requests python-dotenv
+
       - name: Run Bahn Mailer
-        env:
-          SMTP_HOST: ${{ secrets.SMTP_HOST }}
-          SMTP_PORT: ${{ secrets.SMTP_PORT }}
-          SMTP_USER: ${{ secrets.SMTP_USER }}
-          SMTP_PASS: ${{ secrets.SMTP_PASS }}
-          MAIL_FROM: ${{ secrets.MAIL_FROM }}
-          MAIL_TO: ${{ secrets.MAIL_TO }}
-          DB_API_KEY: ${{ secrets.DB_API_KEY }}
+        env:                               # → GitHub Secrets anlegen!
+          DB_API_KEY:   ${{ secrets.DB_API_KEY }}
           DB_CLIENT_ID: ${{ secrets.DB_CLIENT_ID }}
-        run: |
-          python scripts/bahn_mailer.py
+          SMTP_HOST:    ${{ secrets.SMTP_HOST }}
+          SMTP_PORT:    ${{ secrets.SMTP_PORT }}
+          SMTP_USER:    ${{ secrets.SMTP_USER }}
+          SMTP_PASS:    ${{ secrets.SMTP_PASS }}
+          MAIL_FROM:    ${{ secrets.MAIL_FROM }}
+          MAIL_TO:      ${{ secrets.MAIL_TO }}
+        run: python scripts/bahn_mailer.py
