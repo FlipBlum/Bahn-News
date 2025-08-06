@@ -18,3 +18,24 @@ Ich lasse mir morgen von Montag - Donnerstag um 07:30, 09:30 und 11:30 die Züge
    pip install -r requirements.txt
    ```
 
+## Konfiguration
+
+### Benötigte Umgebungsvariablen
+
+Die Anwendung verwendet folgende Variablen, die üblicherweise als Repository-Secrets hinterlegt werden:
+
+- `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` – Zugangsdaten zum SMTP-Server
+- `MAIL_FROM` – Absenderadresse
+- `MAIL_TO` – Empfängeradresse
+- `API_URL` – Endpoint der Bahn-API
+- `API_TOKEN` – Token zur Authentifizierung bei der API
+
+### Geplanter GitHub Action-Workflow
+
+Der Workflow in `.github/workflows/bahn-mailer.yml` sendet die E-Mails automatisch zu festen Zeiten. Standardmäßig wird er täglich um **04:30 UTC**, **06:30 UTC** und **08:30 UTC** ausgeführt.
+
+### Zeitplan anpassen
+
+Um andere Ausführungszeiten zu verwenden, passe die `cron`-Einträge im oben genannten Workflow an. Die Cron-Syntax orientiert sich immer an UTC.
+
+
