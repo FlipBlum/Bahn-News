@@ -30,5 +30,6 @@ jobs:
           MAIL_FROM: ${{ secrets.MAIL_FROM }}
           MAIL_TO: ${{ secrets.MAIL_TO }}
           DB_API_KEY: ${{ secrets.DB_API_KEY }}
+          DB_CLIENT_ID: ${{ secrets.DB_CLIENT_ID }}
         run: |
           python scripts/bahn_mailer.py
