@@ -22,13 +22,13 @@ def send_mail() -> None:
     msg = MIMEText(body)
     msg["Subject"] = "Bahn News"
     msg["From"] = os.environ["SMTP_USER"]
-    msg["To"] = os.environ["SMTP_TO"]
+    msg["To"] = os.environ["MAIL_TO"]
 
     with smtplib.SMTP(
         os.environ["SMTP_HOST"], int(os.environ.get("SMTP_PORT", "587"))
     ) as server:
         server.starttls()
-        server.login(os.environ["SMTP_USER"], os.environ["SMTP_PASSWORD"])
+        server.login(os.environ["SMTP_USER"], os.environ["SMTP_PASS"])
         server.send_message(msg)
 
 
