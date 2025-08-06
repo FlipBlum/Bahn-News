@@ -208,3 +208,5 @@ __marimo__/
 
 bahn_app_private.key
 bahn_app_cert.pem
+
+.xml
