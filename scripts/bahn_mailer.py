@@ -3,6 +3,8 @@ import smtplib
 from email.mime.text import MIMEText
 
 import requests
+import schedule
+import time
 
 
 def fetch_bahn_data() -> str:
@@ -32,5 +34,17 @@ def send_mail() -> None:
         server.send_message(msg)
 
 
+def main() -> None:
+    """Schedule periodic mail with the latest train data."""
+    for day in ("monday", "tuesday", "wednesday", "thursday"):
+        day_schedule = getattr(schedule.every(), day)
+        for moment in ("07:30", "09:30", "11:30"):
+            day_schedule.at(moment).do(send_mail)
+
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
+
+
 if __name__ == "__main__":
-    send_mail()
+    main()
