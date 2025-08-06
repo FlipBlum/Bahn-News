@@ -82,10 +82,18 @@ def job():
 
 def main():
     # Mo–Do, 7:30, 9:30, 11:30
-    for day in ["monday", "tuesday", "wednesday", "thursday"]:
-        schedule.every().week.at("07:30").do(job).tag(day)
-        schedule.every().week.at("09:30").do(job).tag(day)
-        schedule.every().week.at("11:30").do(job).tag(day)
+    schedule.every().monday.at("07:30").do(job)
+    schedule.every().monday.at("09:30").do(job)
+    schedule.every().monday.at("11:30").do(job)
+    schedule.every().tuesday.at("07:30").do(job)
+    schedule.every().tuesday.at("09:30").do(job)
+    schedule.every().tuesday.at("11:30").do(job)
+    schedule.every().wednesday.at("07:30").do(job)
+    schedule.every().wednesday.at("09:30").do(job)
+    schedule.every().wednesday.at("11:30").do(job)
+    schedule.every().thursday.at("07:30").do(job)
+    schedule.every().thursday.at("09:30").do(job)
+    schedule.every().thursday.at("11:30").do(job)
 
     while True:
         schedule.run_pending()
