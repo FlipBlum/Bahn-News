@@ -3,9 +3,9 @@ name: Bahn Mailer
 on:
   # = UTC-Zeiten! 07 :30, 09 :30, 11 :30 Europa/Berlin → 05 :30, 07 :30, 09 :30 UTC (Sommerzeit).
   schedule:
-    - cron: '30 5 * * 1-4'   # Mo-Do 07:30 CEST
-    - cron: '30 7 * * 1-4'   # Mo-Do 09:30 CEST
-    - cron: '30 9 * * 1-4'   # Mo-Do 11:30 CEST
+    - cron: '20 5 * * 1-4'   # Mo-Do 07:30 CEST
+    - cron: '20 7 * * 1-4'   # Mo-Do 09:30 CEST
+    - cron: '20 9 * * 1-4'   # Mo-Do 11:30 CEST
   workflow_dispatch:         # manueller Trigger
 
 jobs:
